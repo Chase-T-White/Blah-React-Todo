@@ -7,6 +7,7 @@ import { useTasksContext } from "../../context/taskContext";
 
 const SortFilterForm = ({
   setSearchInput,
+  sortBy,
   setSortBy,
   filterTags,
   setFilterTags,
@@ -55,13 +56,13 @@ const SortFilterForm = ({
             className={`dropdown-list ${isShowSort ? "" : "hidden"}`}
             onClick={(e) => setSortBy(e.target.value)}
           >
-            <SortListItem input={"Default"} />
-            <SortListItem input={"Ascending Date"} />
-            <SortListItem input={"Descending Date"} />
-            <SortListItem input={"Ascending Complexity"} />
-            <SortListItem input={"Descending Complexity"} />
-            <SortListItem input={"Ascending Priority"} />
-            <SortListItem input={"Descending Priority"} />
+            <SortListItem input={"Default"} sortBy={sortBy} />
+            <SortListItem input={"Ascending Date"} sortBy={sortBy} />
+            <SortListItem input={"Descending Date"} sortBy={sortBy} />
+            <SortListItem input={"Ascending Complexity"} sortBy={sortBy} />
+            <SortListItem input={"Descending Complexity"} sortBy={sortBy} />
+            <SortListItem input={"Ascending Priority"} sortBy={sortBy} />
+            <SortListItem input={"Descending Priority"} sortBy={sortBy} />
           </ul>
         </div>
         <div
@@ -161,6 +162,7 @@ const Form = styled.form`
       font-size: var(--sm);
       background-color: var(--background);
       border-radius: 14px;
+      box-shadow: 0 1rem 45px #00000029;
 
       li + li {
         border-top: 1px solid #d9d9d9;

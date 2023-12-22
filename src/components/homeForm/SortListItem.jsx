@@ -1,9 +1,17 @@
 import styled from "styled-components";
 
-const SortListItem = ({ input }) => {
+const SortListItem = ({ input, sortBy }) => {
   return (
     <ListItem>
-      <label>{input}</label>
+      <label
+        style={{
+          color: `${
+            sortBy === input ? "var(--text-black)" : "var(--text-gray)"
+          }`,
+        }}
+      >
+        {input}
+      </label>
       <input type="radio" name="radio" id="radio" value={input} />
     </ListItem>
   );
@@ -22,5 +30,9 @@ const ListItem = styled.li`
     width: 14px;
     aspect-ratio: 1;
     cursor: pointer;
+
+    &:checked {
+      accent-color: var(--text-black);
+    }
   }
 `;

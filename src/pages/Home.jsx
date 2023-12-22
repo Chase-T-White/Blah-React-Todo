@@ -13,6 +13,7 @@ const Home = () => {
     <main>
       <SortFilterForm
         setSearchInput={setSearchInput}
+        sortBy={sortBy}
         setSortBy={setSortBy}
         filterTags={filterTags}
         setFilterTags={setFilterTags}
