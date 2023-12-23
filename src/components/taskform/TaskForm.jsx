@@ -30,7 +30,9 @@ const TaskForm = ({ edit }) => {
         setDueDate(editTask.dueBy.dueDate);
         setTime(editTask.dueBy.time);
         setSubTasks(editTask.subTasks);
-        setTagInput(editTask.tags.join(","));
+        if (editTask.tags) {
+          setTagInput(editTask.tags.join(","));
+        }
       }
     }
   }, [edit, id, tasksList]);
