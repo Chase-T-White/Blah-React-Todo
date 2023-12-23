@@ -62,6 +62,8 @@ const TasksList = ({ searchInput, sortBy, filterTags }) => {
 export default TasksList;
 
 const Wrapper = styled.div`
+  margin-bottom: 24px;
+
   .items-list {
     display: flex;
     flex-direction: column;

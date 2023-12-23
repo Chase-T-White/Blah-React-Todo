@@ -54,7 +54,7 @@ const Circle = styled.div`
 
   .circle-bg {
     fill: none;
-    stroke: var(--background);
+    stroke: var(--primary-opacity);
   }
   .circle-progress {
     fill: none;

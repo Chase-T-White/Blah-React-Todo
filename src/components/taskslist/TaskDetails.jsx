@@ -14,6 +14,7 @@ const TaskDetails = ({
   priority,
   complexity,
   color,
+  page = null,
 }) => {
   const navigate = useNavigate();
   const { toggleCompleted } = useTasksContext();
@@ -23,22 +24,24 @@ const TaskDetails = ({
       <header className="card-header">
         <div style={{ backgroundColor: color }} className="colorCircle"></div>
         <h6>{task}</h6>
-        <div className="task-icon-container">
-          <div
-            className="task-icon"
-            title="Edit"
-            onClick={() => navigate(`editTask/${id}`)}
-          >
-            <CiEdit />
+        {!page && (
+          <div className="task-icon-container">
+            <div
+              className="task-icon"
+              title="Edit"
+              onClick={() => navigate(`editTask/${id}`)}
+            >
+              <CiEdit />
+            </div>
+            <div
+              className="task-icon"
+              title="Mark Complete"
+              onClick={() => toggleCompleted(id)}
+            >
+              <IoMdCheckmark />
+            </div>
           </div>
-          <div
-            className="task-icon"
-            title="Mark Complete"
-            onClick={() => toggleCompleted(id)}
-          >
-            <IoMdCheckmark />
-          </div>
-        </div>
+        )}
       </header>
       <div className="container">
         <CiCalendarDate className="details-icon" />
@@ -46,7 +49,7 @@ const TaskDetails = ({
           Due Date:{" "}
           <span style={{ color: color }}>{`${
             dueBy.dueDate ? displayDate + "," : "No Due Date"
-          } ${dueBy.time ? displayTime : ""}`}</span>
+          } ${dueBy.dueDate && dueBy.time ? displayTime : ""}`}</span>
         </p>
       </div>
       <div className="container">
@@ -102,6 +105,9 @@ const Details = styled.div`
 
     h6 {
       flex-grow: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .task-icon-container {

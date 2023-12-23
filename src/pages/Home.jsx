@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoIosAdd } from "react-icons/io";
+import styled from "styled-components";
 import { useTasksContext } from "../context/taskContext";
 import SortFilterForm from "../components/homeForm/SortFilterForm";
 import TasksList from "../components/taskslist/TasksList";
@@ -24,9 +26,22 @@ const Home = () => {
         sortBy={sortBy}
         filterTags={filterTags}
       />
-      <button onClick={() => navigate("/createTask")}>Add Task</button>
+      <Button className="btn pill" onClick={() => navigate("/createTask")}>
+        <IoIosAdd className="icon" />
+        Add New Task
+      </Button>
     </main>
   );
 };
 
 export default Home;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-inline: auto;
+  padding: 18px;
+  font-size: 18px;
+`;

@@ -32,7 +32,7 @@ const SortFilterForm = ({
   };
   return (
     <Form>
-      <div className="search-container pill">
+      <div className="search-container border pill">
         <FaMagnifyingGlass className="search-icon" />
         <input
           type="text"
@@ -41,17 +41,16 @@ const SortFilterForm = ({
           placeholder="Search..."
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <div className="arrow-container">
+        <div className="arrow-container border">
           <FaArrowRight className="search-icon" />
         </div>
       </div>
       <div className="dropdowns-container">
-        <div
-          className="dropdown pill"
-          onClick={() => setIsShowSort(!isShowSort)}
-        >
-          <p>Sort</p>
-          <FaChevronDown />
+        <div className="dropdown border pill">
+          <div className="wrapper" onClick={() => setIsShowSort(!isShowSort)}>
+            <p>Sort</p>
+            <FaChevronDown />
+          </div>
           <ul
             className={`dropdown-list ${isShowSort ? "" : "hidden"}`}
             onClick={(e) => setSortBy(e.target.value)}
@@ -65,18 +64,26 @@ const SortFilterForm = ({
             <SortListItem input={"Descending Priority"} sortBy={sortBy} />
           </ul>
         </div>
-        <div
-          className="dropdown pill"
-          onClick={() => setIsShowTags(!isShowTags)}
-        >
-          <p>Tags</p>
-          <FaChevronDown />
+        <div className="dropdown border pill">
+          <div className="wrapper" onClick={() => setIsShowTags(!isShowTags)}>
+            <p>Tags</p>
+            <FaChevronDown />
+          </div>
           <ul className={`dropdown-list ${isShowTags ? "" : "hidden"}`}>
             {findUniqueTags.length > 0 ? (
               findUniqueTags.map((tag) => {
                 return (
                   <li key={tag} className="tagSelect-container">
-                    <label htmlFor="tag">{tag}</label>
+                    <label
+                      htmlFor="tag"
+                      style={
+                        filterTags.includes(tag)
+                          ? { color: "var(--text-black)" }
+                          : { color: "var(--text-gray)" }
+                      }
+                    >
+                      {tag}
+                    </label>
                     <input
                       type="checkbox"
                       name="tag"
@@ -136,6 +143,7 @@ const Form = styled.form`
       justify-content: center;
       border-radius: 50vw;
       background-color: var(--primary-opacity);
+      cursor: pointer;
     }
   }
 
@@ -146,26 +154,49 @@ const Form = styled.form`
     .dropdown {
       flex-grow: 1;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
       padding: var(--padding);
       background-color: var(--background);
       cursor: pointer;
+
+      .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
     }
 
     .dropdown-list {
       position: absolute;
       top: 100%;
+      left: 0;
       width: 100%;
       padding: var(--padding-med);
       font-size: var(--sm);
       background-color: var(--background);
       border-radius: 14px;
       box-shadow: 0 1rem 45px #00000029;
+      z-index: 100;
 
       li + li {
         border-top: 1px solid #d9d9d9;
+      }
+    }
+
+    .tagSelect-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 8px;
+      cursor: default;
+
+      input {
+        width: 14px;
+        aspect-ratio: 1;
+        cursor: pointer;
+
+        &:checked {
+          accent-color: var(--text-black);
+        }
       }
     }
   }
