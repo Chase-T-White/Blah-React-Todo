@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SortFilterForm from "../components/homeForm/SortFilterForm";
 import { useTasksContext } from "../context/taskContext";
+import SortFilterForm from "../components/homeForm/SortFilterForm";
+import TasksList from "../components/taskslist/TasksList";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -17,6 +18,11 @@ const Home = () => {
         setSortBy={setSortBy}
         filterTags={filterTags}
         setFilterTags={setFilterTags}
+      />
+      <TasksList
+        searchInput={searchInput}
+        sortBy={sortBy}
+        filterTags={filterTags}
       />
     </main>
   );

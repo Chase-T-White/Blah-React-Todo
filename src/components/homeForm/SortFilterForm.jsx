@@ -16,11 +16,11 @@ const SortFilterForm = ({
   const [isShowTags, setIsShowTags] = useState(false);
   const { tasksList } = useTasksContext();
 
-  const findUniqueTags = function () {
+  const findUniqueTags = (function () {
     const tagsArray = tasksList.flatMap((task) => task.tags);
     const uniqueTags = new Set(tagsArray);
     return [...uniqueTags];
-  };
+  })();
 
   const handleClick = (e) => {
     if (filterTags.includes(e.target.value)) {

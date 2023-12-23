@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 
-const SubTask = ({ task, id, removeSubTask }) => {
+const SubTask = ({ task, id, removeSubTask, index }) => {
   return (
-    <Item>
-      <p>{task}</p>
-      <div onClick={() => removeSubTask(id)}>
-        <IoMdClose />
+    <Item className="pill">
+      <p>{`${index + 1}. ${task}`}</p>
+      <div className="icon-button remove" onClick={() => removeSubTask(id)}>
+        <IoMdClose className="close-icon" />
       </div>
     </Item>
   );
@@ -16,27 +16,18 @@ const SubTask = ({ task, id, removeSubTask }) => {
 export default SubTask;
 
 const Item = styled.li`
+  width: 100%;
   display: flex;
-  max-width: 300px;
-  margin-bottom: 0.5rem;
-  padding: 0.25rem;
-  background-color: var(--background-tint);
+  align-items: center;
+  justify-content: center;
+  padding: 8px 8px 8px 24px;
+  background-color: var(--background);
 
   p {
     flex-grow: 1;
   }
 
-  div {
-    display: flex;
-    align-items: center;
-    background-color: var(--background-shade);
-    border: 2px inset #88929f;
-
-    &:hover {
-      cursor: pointer;
-      border-style: solid;
-      border-color: var(--select-green);
-      outline: 1px solid var(--select-green);
-    }
+  .close-icon {
+    font-size: 22px;
   }
 `;

@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { uid } from "uid";
 
-const LevelSelector = ({ type }) => {
+const LevelSelector = ({ type, selected, setPriority, setComplexity }) => {
   const createLevel = () => {
     let levelArr = [];
     for (let i = 0; i < 11; i++) {
@@ -10,12 +11,35 @@ const LevelSelector = ({ type }) => {
     return levelArr;
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (type === "Priority") {
+      setPriority(e.target.textContent);
+    } else {
+      setComplexity(e.target.textContent);
+    }
+  };
+
   return (
-    <div>
+    <div className="input-container">
       <h5>{`Select ${type} level`}</h5>
-      <List>
+      <List onClick={handleClick}>
         {createLevel().map((item) => {
-          return <div value={item}>{item}</div>;
+          return (
+            <div
+              key={uid()}
+              style={
+                item === Number(selected)
+                  ? {
+                      backgroundColor: "var(--primary)",
+                      color: "var(--text-white)",
+                    }
+                  : {}
+              }
+            >
+              {item}
+            </div>
+          );
         })}
       </List>
     </div>
@@ -28,4 +52,20 @@ const List = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  div {
+    width: 30px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-opacity);
+    border-radius: 50vw;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text-white);
+      background-color: var(--primary);
+    }
+  }
 `;

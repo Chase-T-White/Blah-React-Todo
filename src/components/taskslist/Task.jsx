@@ -26,10 +26,10 @@ const Task = ({
   return (
     <ListItem>
       <div className="details-container">
-        <div>
+        <div className="card-header">
           <div className="colorCircle"></div>
-          <h5>{task}</h5>
-          <div>
+          <h6>{task}</h6>
+          <div className="task-icon-container">
             <div
               className="task-icon"
               title="Edit"
@@ -104,4 +104,50 @@ export default Task;
 
 const ListItem = styled.li`
   padding: var(--padding);
+  background-color: var(--background);
+  border-radius: 20px;
+
+  .details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+
+    .colorCircle {
+      width: 18px;
+      aspect-ratio: 1;
+      margin-right: var(--padding);
+      background-color: red;
+      border-radius: 50vw;
+    }
+
+    h6 {
+      flex-grow: 1;
+    }
+
+    .task-icon-container {
+      display: flex;
+      gap: 14px;
+
+      .task-icon {
+        width: 32px;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-opacity);
+        border: 1px solid transparent;
+        border-radius: 50vw;
+        cursor: pointer;
+
+        &:hover {
+          border-color: var(--primary);
+        }
+      }
+    }
+  }
 `;

@@ -12,12 +12,12 @@ const TaskForm = ({ edit }) => {
   const { id } = useParams();
   const { tasksList, createTask, updatedTask } = useTasksContext();
   const [task, setTask] = useState("");
-  const [complexity, setComplexity] = useState("");
-  const [priority, setPriority] = useState("");
+  const [complexity, setComplexity] = useState(null);
+  const [priority, setPriority] = useState(null);
   const [dueDate, setDueDate] = useState("");
   const [time, setTime] = useState("");
   const [subTasks, setSubTasks] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
   useEffect(() => {
     if (edit) {
@@ -29,10 +29,20 @@ const TaskForm = ({ edit }) => {
         setDueDate(editTask.dueBy.dueDate);
         setTime(editTask.dueBy.time);
         setSubTasks(editTask.subTasks);
-        setTags(editTask.tags);
+        setTagInput(editTask.tags.join(","));
       }
     }
   }, [edit, id, tasksList]);
+
+  const setTagsArr = () => {
+    const tagsArr = tagInput
+      .trim()
+      .replace(/,+$/g, "")
+      .replace(/,+/g, ",")
+      .split(",");
+    const uniqueTags = new Set(tagsArr);
+    return [...uniqueTags];
+  };
 
   const getDate = () => {
     const date = new Date();
@@ -52,7 +62,7 @@ const TaskForm = ({ edit }) => {
       dueBy: { dueDate, time },
       createdAt: getDate(),
       subTasks,
-      tags,
+      tags: setTagsArr(),
     };
     if (edit) {
       updatedTask({ ...taskData, id });
@@ -65,16 +75,20 @@ const TaskForm = ({ edit }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <header>
-        <div className="back-button" onClick={() => navigate("/")} title="Home">
-          <IoIosArrowRoundBack className="icon-large" />
+        <div
+          className="back-button border"
+          onClick={() => navigate("/")}
+          title="Home"
+        >
+          <IoIosArrowRoundBack className="icon" />
         </div>
         <h3>{edit ? "Edit Task" : "Add New Task"}</h3>
       </header>
       <section>
-        <div className="taskName">
-          <label htmlFor="name">Task Name</label>
+        <div className="input-container">
+          <h5>Task Name</h5>
           <input
-            className="bordered"
+            className="input-lg pill border"
             type="text"
             name="name"
             id="name"
@@ -86,13 +100,23 @@ const TaskForm = ({ edit }) => {
             onChange={(e) => setTask(e.target.value)}
           />
         </div>
-        <LevelSelector type={"Priority"} />
-        <LevelSelector type={"Complexity"} />
+        <LevelSelector
+          type={"Priority"}
+          selected={priority}
+          setPriority={setPriority}
+          setComplexity={setComplexity}
+        />
+        <LevelSelector
+          type={"Complexity"}
+          selected={complexity}
+          setPriority={setPriority}
+          setComplexity={setComplexity}
+        />
         <div className="split-container">
-          <div className="wrapper">
-            <label htmlFor="dueDate">Due Date</label>
+          <div className="input-container">
+            <h5>Select Due Date</h5>
             <input
-              className="bordered"
+              className="input-sm pill border"
               type="date"
               name="dueDate"
               id="dueDate"
@@ -101,10 +125,10 @@ const TaskForm = ({ edit }) => {
               onChange={(e) => setDueDate(e.target.value)}
             />
           </div>
-          <div className="wrapper">
-            <label htmlFor="time">Select Time</label>
+          <div className="input-container">
+            <h5>Select Time</h5>
             <input
-              className="bordered"
+              className="input-sm pill border"
               type="time"
               name="time"
               id="time"
@@ -114,9 +138,9 @@ const TaskForm = ({ edit }) => {
           </div>
         </div>
         <SubTaskSection subTasks={subTasks} setSubTasks={setSubTasks} />
-        <TagsSection tags={tags} setTags={setTags} />
-        <button className="btn" type="submit">
-          {edit ? "Update Task" : "Add Task"}
+        <TagsSection tagInput={tagInput} setTagInput={setTagInput} />
+        <button className="btn pill" type="submit">
+          Save Task
         </button>
       </section>
     </Form>
@@ -131,19 +155,33 @@ const Form = styled.form`
   margin-inline: auto;
 
   header {
+    position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 30px;
 
     .back-button {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 44px;
+      aspect-ratio: 1;
       border-radius: 50vw;
       display: flex;
       align-items: center;
+      justify-content: center;
+      background-color: var(--background);
+      cursor: pointer;
     }
 
     h3 {
       margin-inline: auto;
     }
+  }
+
+  input {
+    font-size: var(--md);
   }
 
   section {
@@ -152,34 +190,39 @@ const Form = styled.form`
     scrollbar-width: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 30px;
   }
 
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
+  .input-container {
+    h5 {
+      margin-bottom: var(--padding);
+    }
   }
 
   input {
-    max-width: 275px;
-    font-size: 1.25rem;
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    background-color: var(--background);
   }
 
-  .taskName {
-    display: flex;
-    flex-direction: column;
+  .input-lg {
+    padding: 20px 24px;
+  }
+
+  .input-sm {
+    padding: 12px 24px;
   }
 
   .split-container {
     display: flex;
-    gap: 1.5rem;
+    gap: 30px;
 
-    .wrapper {
+    div {
       flex: 1 1 50%;
     }
+  }
 
-    .input-numbers {
-      width: 4em;
-    }
+  button {
+    margin-bottom: 1rem;
   }
 `;

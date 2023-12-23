@@ -30,14 +30,15 @@ const SubTaskSection = ({ subTasks, setSubTasks }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="subTask">Add Subtask Checklist</label>
+    <Container>
+      <h5>Add Checklist for Subtasks</h5>
       {subTasks.length > 0 && (
         <ol>
-          {subTasks.map((subTask) => {
+          {subTasks.map((subTask, i) => {
             return (
               <SubTask
                 key={subTask.id}
+                index={i}
                 id={subTask.id}
                 task={subTask.task}
                 removeSubTask={removeSubTask}
@@ -46,7 +47,7 @@ const SubTaskSection = ({ subTasks, setSubTasks }) => {
           })}
         </ol>
       )}
-      <Container className="bordered">
+      <div className="input-container pill border">
         <input
           type="text"
           name="subTask"
@@ -58,37 +59,54 @@ const SubTaskSection = ({ subTasks, setSubTasks }) => {
           min={1}
           max={50}
         />
-        <div onClick={addToSubtasksList}>
-          <IoIosAdd />
+        <div className="icon-button" onClick={addToSubtasksList}>
+          <IoIosAdd className="icon" />
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 
 export default SubTaskSection;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-width: 300px;
-
-  input {
-    background-color: transparent;
-    border: none;
+  h5 {
+    margin-bottom: 7px;
   }
 
-  div {
+  ol {
     display: flex;
-    align-content: center;
-    background-color: var(--background-shade);
-    border: 2px inset #88929f;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
 
-    &:hover {
-      cursor: pointer;
-      border-style: solid;
-      border-color: var(--select-green);
-      outline: 1px solid var(--select-green);
+  .input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 8px 24px;
+    background-color: var(--background);
+    border: 1px solid #e2e2e2;
+
+    input {
+      width: auto;
+      border: none;
     }
   }
+
+  .icon-button {
+      width: 44px;
+      aspect-ratio: 1;
+      border-radius: 50vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-opacity);
+      border: 1px solid transparent;
+      cursor: pointer;
+
+      &:hover {
+        border-color: var(--primary);
+      }
 `;
