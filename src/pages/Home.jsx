@@ -24,6 +24,7 @@ const Home = () => {
         sortBy={sortBy}
         filterTags={filterTags}
       />
+      <button onClick={() => navigate("/createTask")}>Add Task</button>
     </main>
   );
 };

@@ -14,9 +14,45 @@ export function displayDueDate(dueBy) {
     "Dec",
   ];
 
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
   const dueDateArr = dueBy.dueDate.split("-");
   const displayMonth = months[dueDateArr[1] - 1];
-  const displayDate = `${displayMonth} ${dueDateArr[2]}, ${dueDateArr[0]}`;
+  let displayDate = `${displayMonth} ${dueDateArr[2]}, ${dueDateArr[0]}`;
+
+  let headsUp = null;
+  const millisecondsInDay = 86400000;
+  const millisecondsInWeek = millisecondsInDay * 7;
+
+  const currentDateTime = new Date().getTime();
+  const dueByTime = new Date(displayDate).getTime();
+  const remainingTime = dueByTime - currentDateTime;
+
+  if (remainingTime <= millisecondsInDay) {
+    headsUp = "today";
+  } else if (remainingTime <= millisecondsInDay * 3) {
+    headsUp = "close";
+  }
+
+  if (
+    remainingTime <= millisecondsInDay &&
+    dueDateArr[2] === String(new Date().getDate())
+  ) {
+    displayDate = "Today";
+  } else if (remainingTime <= millisecondsInDay * 2) {
+    displayDate = "Tomorrow";
+  } else if (remainingTime <= millisecondsInWeek) {
+    const dueByDay = new Date(displayDate).getDay();
+    displayDate = `Next ${weekday[dueByDay]}`;
+  }
 
   const dueTimeArr = dueBy.time.split(":");
   let displayTime;
@@ -30,5 +66,5 @@ export function displayDueDate(dueBy) {
     displayTime = dueBy.time + " AM";
   }
 
-  return [displayDate, displayTime];
+  return [displayDate, displayTime, headsUp];
 }

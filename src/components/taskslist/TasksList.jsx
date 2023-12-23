@@ -50,7 +50,7 @@ const TasksList = ({ searchInput, sortBy, filterTags }) => {
 
   return (
     <Wrapper>
-      <ul>
+      <ul className="items-list">
         {filteredSortedList.map((item) => {
           return <Task key={item.id} {...item} />;
         })}
@@ -62,8 +62,9 @@ const TasksList = ({ searchInput, sortBy, filterTags }) => {
 export default TasksList;
 
 const Wrapper = styled.div`
-  ul {
+  .items-list {
     display: flex;
     flex-direction: column;
+    gap: 24px;
   }
 `;

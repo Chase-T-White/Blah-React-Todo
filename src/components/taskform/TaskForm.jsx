@@ -6,14 +6,15 @@ import LevelSelector from "./LevelSelector";
 import SubTaskSection from "./SubTaskSection";
 import TagsSection from "./TagsSection";
 import { useTasksContext } from "../../context/taskContext";
+import { colorPicker } from "../../functions/colorPickers";
 
 const TaskForm = ({ edit }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { tasksList, createTask, updatedTask } = useTasksContext();
   const [task, setTask] = useState("");
-  const [complexity, setComplexity] = useState(null);
-  const [priority, setPriority] = useState(null);
+  const [complexity, setComplexity] = useState("0");
+  const [priority, setPriority] = useState("0");
   const [dueDate, setDueDate] = useState("");
   const [time, setTime] = useState("");
   const [subTasks, setSubTasks] = useState([]);
@@ -35,13 +36,16 @@ const TaskForm = ({ edit }) => {
   }, [edit, id, tasksList]);
 
   const setTagsArr = () => {
-    const tagsArr = tagInput
-      .trim()
-      .replace(/,+$/g, "")
-      .replace(/,+/g, ",")
-      .split(",");
-    const uniqueTags = new Set(tagsArr);
-    return [...uniqueTags];
+    if (tagInput) {
+      const tagsArr = tagInput
+        .trim()
+        .replace(/,+$/g, "")
+        .replace(/,+/g, ",")
+        .split(",");
+      const uniqueTags = new Set(tagsArr);
+      return [...uniqueTags];
+    }
+    return;
   };
 
   const getDate = () => {
@@ -63,6 +67,7 @@ const TaskForm = ({ edit }) => {
       createdAt: getDate(),
       subTasks,
       tags: setTagsArr(),
+      color: colorPicker(),
     };
     if (edit) {
       updatedTask({ ...taskData, id });

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CircleProgressBar = ({ subTasks }) => {
+const CircleProgressBar = ({ subTasks, color }) => {
   const subTasksCompleted = subTasks.filter((subTask) => subTask.isCompleted);
   const percentage = (
     (subTasksCompleted.length / subTasks.length) *
@@ -25,7 +25,11 @@ const CircleProgressBar = ({ subTasks }) => {
           strokeWidth={"3px"}
           r={25}
           className="circle-progress"
-          style={{ strokeDasharray: dashArray, strokeDashoffset: dashOffset }}
+          style={{
+            strokeDasharray: dashArray,
+            strokeDashoffset: dashOffset,
+            stroke: color,
+          }}
           transform="rotate(-90 50 50)"
         />
       </svg>
@@ -54,6 +58,5 @@ const Circle = styled.div`
   }
   .circle-progress {
     fill: none;
-    stroke: magenta;
   }
 `;
