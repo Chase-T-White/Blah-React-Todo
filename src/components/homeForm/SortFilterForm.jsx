@@ -17,7 +17,10 @@ const SortFilterForm = ({
   const { tasksList } = useTasksContext();
 
   const findUniqueTags = (function () {
-    const tagsArray = tasksList.flatMap((task) => task.tags);
+    const tagsArray = tasksList
+      .flatMap((task) => task.tags)
+      .filter((tag) => tag !== undefined);
+    console.log(tagsArray);
     const uniqueTags = new Set(tagsArray);
     return [...uniqueTags];
   })();
