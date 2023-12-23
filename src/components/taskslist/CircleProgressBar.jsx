@@ -43,7 +43,7 @@ const Circle = styled.div`
   width: 100px;
   position: absolute;
   right: 0;
-  top: 55px;
+  top: 40px;
 
   p {
     position: absolute;
