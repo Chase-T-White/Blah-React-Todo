@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import styled from "styled-components";
-import { useTasksContext } from "../context/taskContext";
 import SortFilterForm from "../components/homeForm/SortFilterForm";
 import TasksList from "../components/taskslist/TasksList";
 
@@ -11,7 +10,6 @@ const Home = () => {
   const [searchInput, setSearchInput] = useState(null);
   const [sortBy, setSortBy] = useState("");
   const [filterTags, setFilterTags] = useState([]);
-  const { tasksList, deleteTasks } = useTasksContext();
   return (
     <main>
       <SortFilterForm
