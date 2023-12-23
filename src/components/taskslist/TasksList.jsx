@@ -16,7 +16,7 @@ const TasksList = ({ searchInput, sortBy, filterTags }) => {
       if (filterTags.length > 0) {
         let hasTag = false;
         for (const tag of filterTags) {
-          if (item.tags.includes(tag)) {
+          if (item.tags && item.tags.includes(tag)) {
             hasTag = true;
             break;
           }
