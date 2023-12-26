@@ -3,7 +3,7 @@ import TaskForm from "../components/taskform/TaskForm";
 const CreateTaskPage = () => {
   return (
     <main>
-      <TaskForm edit={false} />
+      <TaskForm />
     </main>
   );
 };

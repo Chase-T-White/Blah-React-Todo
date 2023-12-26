@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { uid } from "uid";
-import { checkStorage, updateStorage } from "../functions/storageFunctions";
+import { checkStorage, updateStorage } from "../utils/storageFunctions";
 
 const TasksContext = React.createContext();
 
@@ -37,23 +37,31 @@ const TasksProvider = ({ children }) => {
     setTasksList(updatedTaskList);
   };
 
-  const toggleCompleted = (id, subTask = null) => {
+  // Update the completed status of a task or a subtask within a task
+  const toggleCompleted = (id, subTaskToEdit = null) => {
     let updatedTasksList;
-    if (subTask) {
+
+    // toggle the completed status of a subtask within a task object.
+    if (subTaskToEdit) {
       let taskToEdit = tasksList.find((task) => task.id === id);
-      const updateSubTasks = taskToEdit.subTasks.map((originalSubTask) =>
-        originalSubTask.id === subTask.id
-          ? { ...originalSubTask, isCompleted: !originalSubTask.isCompleted }
-          : originalSubTask
-      );
+      const updateSubTasks = taskToEdit.subTasks.map((subTask) => {
+        if (subTask.id === subTaskToEdit.id) {
+          return { ...subTask, isCompleted: !subTask.isCompleted };
+        }
+        return subTask;
+      });
       taskToEdit = { ...taskToEdit, subTasks: updateSubTasks };
       updatedTasksList = tasksList.map((task) =>
         task.id === id ? { ...taskToEdit } : task
       );
     } else {
-      updatedTasksList = tasksList.map((task) =>
-        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
-      );
+      // toggle the completed status of a task
+      updatedTasksList = tasksList.map((task) => {
+        if (task.id === id) {
+          return { ...task, isCompleted: !task.isCompleted };
+        }
+        return task;
+      });
     }
 
     setTasksList(updatedTasksList);

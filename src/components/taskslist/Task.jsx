@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { uid } from "uid";
 import TaskDetails from "./TaskDetails";
 import CircleProgressBar from "./CircleProgressBar";
-import { displayDueDate } from "../../functions/displayDueDate";
-import { tagColor } from "../../functions/colorPickers";
+import { displayDueDate } from "../../utils/displayDueDate";
+import { tagColor } from "../../utils/colorPickers";
 
 const Task = ({
   id,

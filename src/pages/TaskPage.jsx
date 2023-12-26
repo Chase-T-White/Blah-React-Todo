@@ -5,7 +5,7 @@ import { IoIosArrowRoundBack, IoMdCheckmark } from "react-icons/io";
 import styled from "styled-components";
 import TaskDetails from "../components/taskslist/TaskDetails";
 import { useTasksContext } from "../context/taskContext";
-import { displayDueDate } from "../functions/displayDueDate";
+import { displayDueDate } from "../utils/displayDueDate";
 
 const TaskPage = () => {
   const navigate = useNavigate();

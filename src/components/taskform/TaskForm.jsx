@@ -6,7 +6,7 @@ import LevelSelector from "./LevelSelector";
 import SubTaskSection from "./SubTaskSection";
 import TagsSection from "./TagsSection";
 import { useTasksContext } from "../../context/taskContext";
-import { colorPicker } from "../../functions/colorPickers";
+import { colorPicker } from "../../utils/colorPickers";
 
 const TaskForm = ({ edit }) => {
   const navigate = useNavigate();
