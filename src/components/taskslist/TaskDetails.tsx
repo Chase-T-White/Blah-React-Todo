@@ -5,6 +5,21 @@ import { IoMdCheckmark, IoIosArrowRoundUp } from "react-icons/io";
 import { BsArrowsMove } from "react-icons/bs";
 import { useTasksContext } from "../../context/taskContext";
 
+interface Props {
+  dueBy: {
+    dueDate: string;
+    time: string;
+  };
+  displayDate: string | null;
+  displayTime: string | null;
+  task: string;
+  id: string;
+  priority: string;
+  complexity: string;
+  color: string;
+  page?: string | null;
+}
+
 const TaskDetails = ({
   dueBy,
   displayDate,
@@ -15,7 +30,7 @@ const TaskDetails = ({
   complexity,
   color,
   page = null,
-}) => {
+}: Props) => {
   const navigate = useNavigate();
   const { toggleCompleted } = useTasksContext();
 

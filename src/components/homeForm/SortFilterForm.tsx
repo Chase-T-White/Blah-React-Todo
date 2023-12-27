@@ -5,13 +5,21 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import SortListItem from "./SortListItem";
 import { useTasksContext } from "../../context/taskContext";
 
+interface Props {
+  setSearchInput: Function;
+  sortBy: string;
+  setSortBy: Function;
+  filterTags: string[];
+  setFilterTags: Function;
+}
+
 const SortFilterForm = ({
   setSearchInput,
   sortBy,
   setSortBy,
   filterTags,
   setFilterTags,
-}) => {
+}: Props) => {
   const [isShowSort, setIsShowSort] = useState(false);
   const [isShowTags, setIsShowTags] = useState(false);
   const { tasksList } = useTasksContext();
@@ -20,12 +28,11 @@ const SortFilterForm = ({
     const tagsArray = tasksList
       .flatMap((task) => task.tags)
       .filter((tag) => tag !== undefined);
-    console.log(tagsArray);
     const uniqueTags = new Set(tagsArray);
     return [...uniqueTags];
   })();
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     if (filterTags.includes(e.target.value)) {
       const removedTagList = filterTags.filter((tag) => tag !== e.target.value);
       setFilterTags(removedTagList);
@@ -56,7 +63,7 @@ const SortFilterForm = ({
           </div>
           <ul
             className={`dropdown-list ${isShowSort ? "" : "hidden"}`}
-            onClick={(e) => setSortBy(e.target.value)}
+            onClick={(e: any) => setSortBy(e.target.value)}
           >
             <SortListItem input={"Default"} sortBy={sortBy} />
             <SortListItem input={"Ascending Date"} sortBy={sortBy} />

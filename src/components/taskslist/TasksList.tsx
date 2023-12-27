@@ -2,7 +2,13 @@ import styled from "styled-components";
 import Task from "./Task";
 import { useTasksContext } from "../../context/taskContext";
 
-const TasksList = ({ searchInput, sortBy, filterTags }) => {
+interface Props {
+  searchInput: string;
+  sortBy: string;
+  filterTags: string[];
+}
+
+const TasksList = ({ searchInput, sortBy, filterTags }: Props) => {
   const { tasksList } = useTasksContext();
 
   const filteredSortedList = tasksList
@@ -25,7 +31,7 @@ const TasksList = ({ searchInput, sortBy, filterTags }) => {
       }
       return item;
     })
-    .sort((a, b) => {
+    .sort((a: any, b: any) => {
       if (sortBy === "Ascending Date") {
         return (
           Date.parse(a.dueBy.dueDate + " " + a.dueBy.time) -

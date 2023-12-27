@@ -9,7 +9,7 @@ import { displayDueDate } from "../utils/displayDueDate";
 
 const TaskPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { tasksList, deleteSingleTask, toggleCompleted } = useTasksContext();
 
   const [selectedTask] = tasksList.filter((tasks) => tasks.id === id);
@@ -22,6 +22,10 @@ const TaskPage = () => {
       subTasks.length) *
       100
   );
+
+  if (!id) {
+    return navigate("/");
+  }
 
   return (
     <Wrapper>

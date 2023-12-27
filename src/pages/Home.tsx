@@ -7,7 +7,7 @@ import TasksList from "../components/taskslist/TasksList";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [searchInput, setSearchInput] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [filterTags, setFilterTags] = useState([]);
   return (

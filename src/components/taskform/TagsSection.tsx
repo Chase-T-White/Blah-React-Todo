@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
-const TagsFormSection = ({ tagInput, setTagInput }) => {
-  const handleKeyDown = (e) => {
+interface Props {
+  tagInput: string;
+  setTagInput: Function;
+}
+
+const TagsFormSection = ({ tagInput, setTagInput }: Props) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }

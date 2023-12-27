@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
-const CircleProgressBar = ({ subTasks, color }) => {
+interface SubTaskTypes {
+  id: string;
+  task: string;
+  isCompleted: boolean;
+}
+
+interface Props {
+  color: string;
+  subTasks: SubTaskTypes[];
+}
+
+const CircleProgressBar = ({ subTasks, color }: Props) => {
   const subTasksCompleted = subTasks.filter((subTask) => subTask.isCompleted);
-  const percentage = (
-    (subTasksCompleted.length / subTasks.length) *
-    100
-  ).toFixed(0);
+  const percentage = Number(
+    ((subTasksCompleted.length / subTasks.length) * 100).toFixed(0)
+  );
   const dashArray = 25 * Math.PI * 2;
   const dashOffset = dashArray - (dashArray * percentage) / 100;
   return (

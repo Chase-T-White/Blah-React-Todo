@@ -1,7 +1,12 @@
 import { IoMdClose } from "react-icons/io";
 import styled from "styled-components";
 
-const Tag = ({ tag, removeTag }) => {
+interface Props {
+  tag: String;
+  removeTag: Function;
+}
+
+const Tag = ({ tag, removeTag }: Props) => {
   return (
     <ListItem className="bordered bordered__noPoint">
       <h6>{tag}</h6>

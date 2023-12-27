@@ -1,4 +1,9 @@
-export function displayDueDate(dueBy) {
+interface DueBy {
+  dueDate: string;
+  time: string;
+}
+
+export function displayDueDate(dueBy: DueBy) {
   const months = [
     "Jan",
     "Feb",
@@ -25,7 +30,7 @@ export function displayDueDate(dueBy) {
   ];
 
   const dueDateArr = dueBy.dueDate.split("-");
-  const displayMonth = months[dueDateArr[1] - 1];
+  const displayMonth = months[Number(dueDateArr[1]) - 1];
   let displayDate = `${displayMonth} ${dueDateArr[2]}, ${dueDateArr[0]}`;
 
   let headsUp = null;

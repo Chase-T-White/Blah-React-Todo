@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { uid } from "uid";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import LevelSelector from "./LevelSelector";
@@ -8,7 +9,11 @@ import TagsSection from "./TagsSection";
 import { useTasksContext } from "../../context/taskContext";
 import { colorPicker } from "../../utils/colorPickers";
 
-const TaskForm = ({ edit }) => {
+interface Props {
+  edit?: boolean;
+}
+
+const TaskForm = ({ edit }: Props) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { tasksList, createTask, updatedTask } = useTasksContext();
@@ -17,7 +22,9 @@ const TaskForm = ({ edit }) => {
   const [priority, setPriority] = useState("0");
   const [dueDate, setDueDate] = useState("");
   const [time, setTime] = useState("");
-  const [subTasks, setSubTasks] = useState([]);
+  const [subTasks, setSubTasks] = useState<
+    { id: string; task: string; isCompleted: boolean }[]
+  >([]);
   const [tagInput, setTagInput] = useState("");
 
   useEffect(() => {
@@ -47,7 +54,7 @@ const TaskForm = ({ edit }) => {
       const uniqueTags = new Set(tagsArr);
       return [...uniqueTags];
     }
-    return;
+    return [];
   };
 
   const getDate = () => {
@@ -59,20 +66,21 @@ const TaskForm = ({ edit }) => {
     return `${year}-${month}-${day}`;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const taskData = {
       task,
       complexity,
       priority,
       dueBy: { dueDate, time },
-      createdAt: getDate(),
       subTasks,
       tags: setTagsArr(),
       color: colorPicker(),
+      isCompleted: false,
+      id: uid(),
     };
     if (edit) {
-      updatedTask({ ...taskData, id });
+      updatedTask({ ...taskData });
     } else {
       createTask(taskData);
     }

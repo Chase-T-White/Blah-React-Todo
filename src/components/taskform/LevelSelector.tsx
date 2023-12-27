@@ -2,7 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { uid } from "uid";
 
-const LevelSelector = ({ type, selected, setPriority, setComplexity }) => {
+interface Props {
+  type: string;
+  selected: string;
+  setPriority: Function;
+  setComplexity: Function;
+}
+
+const LevelSelector = ({
+  type,
+  selected,
+  setPriority,
+  setComplexity,
+}: Props) => {
   const createLevel = () => {
     let levelArr = [];
     for (let i = 0; i < 11; i++) {
@@ -11,7 +23,7 @@ const LevelSelector = ({ type, selected, setPriority, setComplexity }) => {
     return levelArr;
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     e.preventDefault();
     if (type === "Priority") {
       setPriority(e.target.textContent);

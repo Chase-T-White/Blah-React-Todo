@@ -4,7 +4,18 @@ import { uid } from "uid";
 import styled from "styled-components";
 import SubTask from "./SubTask";
 
-const SubTaskSection = ({ subTasks, setSubTasks }) => {
+interface SubTaskTypes {
+  id: string;
+  task: string;
+  isCompleted: boolean;
+}
+
+interface Props {
+  subTasks: SubTaskTypes[];
+  setSubTasks: Function;
+}
+
+const SubTaskSection = ({ subTasks, setSubTasks }: Props) => {
   const [input, setInput] = useState("");
 
   const addToSubtasksList = () => {
@@ -17,12 +28,12 @@ const SubTaskSection = ({ subTasks, setSubTasks }) => {
     }
   };
 
-  const removeSubTask = (id) => {
+  const removeSubTask = (id: string) => {
     const updatedSubTasks = subTasks.filter((subTask) => subTask.id !== id);
     setSubTasks(updatedSubTasks);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
       addToSubtasksList();

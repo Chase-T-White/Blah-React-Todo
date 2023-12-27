@@ -5,6 +5,7 @@ import TaskDetails from "./TaskDetails";
 import CircleProgressBar from "./CircleProgressBar";
 import { displayDueDate } from "../../utils/displayDueDate";
 import { tagColor } from "../../utils/colorPickers";
+import { TaskTypes } from "../../types/TaskTypes";
 
 const Task = ({
   id,
@@ -16,7 +17,7 @@ const Task = ({
   subTasks,
   tags,
   color,
-}) => {
+}: TaskTypes) => {
   const [displayDate, displayTime, headsUp] =
     dueBy.dueDate && displayDueDate(dueBy);
   return (

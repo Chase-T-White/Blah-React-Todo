@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-const SortListItem = ({ input, sortBy }) => {
+interface Props {
+  input: string;
+  sortBy: string;
+}
+
+const SortListItem = ({ input, sortBy }: Props) => {
   return (
     <ListItem>
       <label

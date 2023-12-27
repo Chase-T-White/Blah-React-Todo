@@ -2,7 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 
-const SubTask = ({ task, id, removeSubTask, index }) => {
+interface Props {
+  task: string;
+  id: string;
+  removeSubTask: Function;
+  index: number;
+}
+
+const SubTask = ({ task, id, removeSubTask, index }: Props) => {
   return (
     <Item className="pill">
       <p>{`${index + 1}. ${task}`}</p>
