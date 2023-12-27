@@ -26,6 +26,7 @@ const TaskForm = ({ edit }: Props) => {
     { id: string; task: string; isCompleted: boolean }[]
   >([]);
   const [tagInput, setTagInput] = useState("");
+  const [isCompleted, setisCompleted] = useState(false);
 
   useEffect(() => {
     if (edit) {
@@ -40,6 +41,7 @@ const TaskForm = ({ edit }: Props) => {
         if (editTask.tags) {
           setTagInput(editTask.tags.join(","));
         }
+        setisCompleted(editTask.isCompleted);
       }
     }
   }, [edit, id, tasksList]);
@@ -76,8 +78,8 @@ const TaskForm = ({ edit }: Props) => {
       subTasks,
       tags: setTagsArr(),
       color: colorPicker(),
-      isCompleted: false,
-      id: uid(),
+      isCompleted,
+      id: id ? id : uid(),
     };
     if (edit) {
       updatedTask({ ...taskData });
