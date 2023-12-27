@@ -52,7 +52,10 @@ export function displayDueDate(dueBy: DueBy) {
     dueDateArr[2] === String(new Date().getDate())
   ) {
     displayDate = "Today";
-  } else if (remainingTime <= millisecondsInDay * 2) {
+  } else if (
+    remainingTime <= millisecondsInDay * 2 &&
+    Number(dueDateArr[2]) === new Date().getDate() + 1
+  ) {
     displayDate = "Tomorrow";
   } else if (remainingTime <= millisecondsInWeek) {
     const dueByDay = new Date(displayDate).getDay();
